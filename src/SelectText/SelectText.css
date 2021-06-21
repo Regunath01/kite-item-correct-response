@@ -1,0 +1,143 @@
+.st-cr-container{
+    margin-top: 15px;
+}
+
+.st-correct-response{
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px lightgrey;
+    padding: 5px;
+    margin: 10px 0 0 0;
+}
+
+.st-attribute{
+    border: 1px solid darkgray;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px lightgrey;
+    padding: 12px;
+    margin: 10px 0 20px 0;
+}
+
+.st-highlight-check{
+    margin-left: -16px;
+    margin-top: 10px;
+}
+
+.st-rationale div {
+    border: 2px solid rgb(109, 109, 109);
+    width: 100%;
+    height: 90px;
+    overflow: auto;
+  }
+.st-selection-type{
+    padding-bottom: 5px;
+    padding-right: 25px;
+
+}
+
+.st-selected-response{
+    background-color: yellow
+};
+
+  .st-border-alignred:hover {
+    border: 2px solid red;
+  }
+  
+  .st-border-align{
+   border: 2px solid black;
+  }
+  
+.st-rationale-align{
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
+.st-align-checkbox {
+    display: none;
+}
+
+.st-bold-select-align {
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: black;
+}
+
+.st-blur-select-align {
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: black;
+}
+
+.st-border-start-black{
+
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px;
+  outline:2px solid black;
+}
+
+.st-border-start-red{
+
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px;
+  outline:2px solid red;
+}
+
+  
+  .st-border-hover-black:hover {
+    outline: 2px solid black;
+  }
+  
+  .st-border-hover-red:hover {
+    outline: 2px solid red;
+  }
+  
+  .st-highlight-hover:hover {
+    background-color: yellow;
+  }
+
+  .st-highlight-start {
+    background-color: yellow;
+  }
+
+  .st-highlight-hover-yellow:hover {
+    background-color: yellow;
+  }
+
+  .st-highlight-hover-none:hover {
+    background-color: white;
+  }
+
+
+  .st-border-select-black{
+
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px;
+    outline:2px solid black;
+  }
+  
+  .st-border-select-red{
+  
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px;
+    outline:2px solid red;
+  }
+
+  .st-bold-border-select-black{
+
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px;
+    outline:4px solid black;
+  }
+  
+  .st-bold-border-select-red{
+  
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px;
+    outline:4px solid red;
+  }
+ 
+  .st-selected-response-none{
+    background-color: white
+};

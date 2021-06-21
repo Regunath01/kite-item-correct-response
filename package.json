@@ -1,0 +1,65 @@
+{
+    "name": "kite-item-correct-response",
+    "version": "1.0.0",
+    "description": "React Boilerplate Component for npm",
+    "main": "./src/PreviewCorrectResponse.js",
+    "license": "MIT",
+    "scripts": {
+        "build": "webpack"
+    },
+    "peerDependencies": {
+        "prop-types": "^15.6.0",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0"
+    },
+    "devDependencies": {
+        "babel-core": "^6.21.0",
+        "babel-loader": "^7.1.4",
+        "babel-preset-env": "^1.6.1",
+        "babel-preset-react": "^6.16.0",
+        "babel-preset-stage-0": "^6.24.1",
+        "path": "^0.12.7",
+        "prop-types": "^15.6.0",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0",
+        "webpack": "^4.5.0",
+        "webpack-cli": "^3.2.1"
+    },
+    "dependencies": {
+        "@babel/plugin-transform-react-jsx": "^7.14.5",
+        "@progress/kendo-data-query": "^1.5.4",
+        "@progress/kendo-drawing": "^1.9.2",
+        "@progress/kendo-react-animation": "^4.0.0",
+        "@progress/kendo-react-buttons": "^3.18.0",
+        "@progress/kendo-react-common": "^3.18.0",
+        "@progress/kendo-react-data-tools": "^3.18.0",
+        "@progress/kendo-react-dateinputs": "^3.18.0",
+        "@progress/kendo-react-dialogs": "^3.18.0",
+        "@progress/kendo-react-dropdowns": "^3.18.0",
+        "@progress/kendo-react-excel-export": "^4.4.0",
+        "@progress/kendo-react-grid": "^3.18.0",
+        "@progress/kendo-react-inputs": "^3.18.0",
+        "@progress/kendo-react-intl": "^3.18.0",
+        "@progress/kendo-react-layout": "^3.18.0",
+        "@progress/kendo-react-popup": "^4.4.0",
+        "@progress/kendo-react-progressbars": "^3.18.0",
+        "@progress/kendo-react-treelist": "^3.18.0",
+        "@progress/kendo-react-treeview": "^4.3.0",
+        "@progress/kendo-react-upload": "^3.18.0",
+        "@progress/kendo-scheduler-react-wrapper": "^2019.4.1014",
+        "@progress/kendo-theme-default": "^4.23.0",
+        "css-loader": "^5.2.6",
+        "html-react-parser": "^1.2.7",
+        "style-loader": "^2.0.0"
+    },
+    "plugins": [
+        [
+            "@babel/plugin-transform-react-jsx",
+            {
+                "throwIfNamespace": false,
+                "runtime": "automatic",
+                "importSource": "custom-jsx-library"
+            }
+        ]
+    ]
+}
