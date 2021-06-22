@@ -1,6 +1,6 @@
 /**
- * @file Correct Response component for Matrix Interaction item type 
- * @author Rajaguru
+ * @file PreviewCorrecrResponse component for common redirection 
+ * @author Regu
  */
 import React, { useEffect, useState } from "react";
 import { RadioButton, Checkbox } from "@progress/kendo-react-inputs";
@@ -9,62 +9,37 @@ import SelectText from './SelectText/index'
 import Matrix from './Matrix/index'
 
 
-const PreviewCorrecrResponse = ({ content, onUpdate,module, showCorrectResponseOnly }) => {
+const PreviewCorrecrResponse = ({ content, onUpdate, module, showCorrectResponseOnly }) => {
 
-    const itemRepositories = [ {code:"MCRB", repository:Matrix}, 
-    {code:"ST", repository:SelectText},];
-    console.log("itemTypeCode",content.itemTypeCode)
+  const itemRepositories = [{ code: "MCRB", repository: Matrix },
+  { code: "ST", repository: SelectText },];
+  console.log("itemTypeCode", content.itemTypeCode)
 
-    const [itemResponse, setItemResponse] = useState(setRepo());
+  const itemType = setRepo();
 
-  
-       
+ //This methos is used to set Item repositoy based on the itemTypeCode
+  function setItemRepository() {
+    let c = itemRepositories.find((r) => { return r.code === content.itemTypeCode });
+    if (c && c.repository) {
+      return c.repository;
+    }
+  }
 
-        function setRepo() {
-            let c = itemRepositories.find((r) => { return r.code === content.itemTypeCode});
-            console.log("c ,,,,,,,,,,,,, ",c)
-            if(c && c.repository) {
-                console.log("c if,,,,,,,,,,,,, ",c)
-                //setItemResponse(c.repository);
-                return c.repository;
-            }
-            console.log("Test the item repo",itemResponse)
-          }
-      
-
-          function setCorrectReponseOnly() {
-            if (module === "PREVIEW" && showCorrectResponseOnly) {
-               
-                
-                return true;
-                
-              }else{
-                  return false;
-              }
-          }
-       
-      
-
-        // useEffect(() => {
-        //     console.log("Test the item repo",itemResponse)
-        //     let c = itemRepositories.find((r) => { return r.code === content.itemTypeCode});
-        //     if(c && c.repository) {
-        //         setItemResponse(c.repository);
-        //     }
-        //     console.log(itemResponse)
-        //   });
+ //Function is used to set the flag for correcr response only in the Preview
+  function setCorrectReponseOnly() {
+    if (module === "PREVIEW" && showCorrectResponseOnly) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   return (
     <>
-    {/* {itemCode === "ST" && (
-            <CorrectResponse content={content} onUpdate={onUpdate} />
-    )}
-    {itemCode !== "ST" && (
-            <MatrixCorrectResponse content={content} onUpdate={onUpdate} />
-    )} */}
-     <itemResponse.CorrectResponse content={content} onUpdate={onUpdate} module={module} showCorrectResponse={setCorrectReponseOnly()}/>
-   
-     </>
+
+      <itemType.CorrectResponse content={content} onUpdate={onUpdate} module={module} showCorrectResponse={setCorrectReponseOnly()} />
+
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 /**
  * @file Correcr Response component for Select Text item type
- * @author Rajaguru
+ * @author Rajaguru & Regu
  */
 
 import React, { useEffect, useState } from "react";
@@ -60,13 +60,8 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
   };
 
   const [classNameForCR, setClassNameForCR] = useState(setClassNames());
-  const [showOnlyCorrectResponse, setShowOnlyCorrectResponse] = useState(false);
 
-
-  const showCorrectResponses=setResponseObject();
-
-
-
+  const showCorrectResponses = setResponseObject();//Setting response object where user action has to be saved
 
   useEffect(() => {
     if (content.borderAtStart === ST_RED) {
@@ -98,9 +93,6 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
     }
 
 
-    
-   
-
     setClassNameForCR(classNameForCR);
 
     generateContentForCorrectResponse();
@@ -108,91 +100,78 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
   }, [content]);
 
 
+  //This Handler is used to set the response object based on the module
   function setResponseObject() {
-    console.log("showCorrectResponse..",showCorrectResponse)
-    console.log("module..",module)
     if (module === "PREVIEW" && !showCorrectResponse) {
-      console.log("module..",module)
-      if(!content.previewResponseAction){
-         content.previewResponseAction= { responses: [] };
+      /* If the request is from preview then we will be saving user action 
+      in the new attribute(content.previewResponseAction) in content object */
+      if (!content.previewResponseAction) {
+        content.previewResponseAction = { responses: [] };
       }
-      
-      console.log("content..",content)
-      //setUserCorrectResponses(content.previewResponseAction);
-      
+
       return content.previewResponseAction;
-      
-    }else if (module === "PREVIEW" && showCorrectResponse) {
-      // console.log("module..",module)
-      // if(!content.previewResponseAction){
-      //    content.previewResponseAction= { responses: [] };
-      // }
-      
-      // console.log("content..",content)
-      //setUserCorrectResponses(content.previewResponseAction);
-      //setShowOnlyCorrectResponse(true);
-      
+    } else if (module === "PREVIEW" && showCorrectResponse) {
+      /* If the request is from preview to correct response only 
+      then we will be showing the correct responses where the user cannot perform any actions*/      
       return content.correctResponse;
-      
-    }else{
+    } else {
       return content.correctResponse;
     }
 
-    //console.log("userCorrectResponses..",userCorrectResponses)
   }
 
 
   //This Handler is used to build the correct response based on user selection
   const buildCorrectResponse = (e) => {
     e.preventDefault();
-    if(!showCorrectResponse){
-    let id = e.target.id;
-    if (id === undefined || id === "") {
-      id = e.currentTarget.id;
-    }
-    let selectedText = document.getElementById(id);
-    const responses = showCorrectResponses.responses;
-    if (
-      selectedText !== null &&
-      selectedText.getAttribute(CLASS) !== null &&
-      selectedText.getAttribute(CLASS) !== "" &&
-      responses.includes(id)
-    ) {
-      let className = selectedText
-        .getAttribute(CLASS)
-        .replace(/st-border-select-black/gi, "")
-        .replace(/st-border-select-red/gi, "")
-        .replace(/st-selected-response/gi, "");
-
-      selectedText.setAttribute(CLASS, className);
-      if (responses.includes(id)) {
-        const optIndex = responses.findIndex((element) => element === id);
-        responses.splice(optIndex, 1);
+    if (!showCorrectResponse) {//if the preview is only for showing correct response then restricting user actions
+      let id = e.target.id;
+      if (id === undefined || id === "") {
+        id = e.currentTarget.id;
       }
-    } else {
-      let className =
-        selectedText.getAttribute(CLASS) + SELECTED_RESPONSE_CLASS;
-
-      if (content.borderOnSelect === ST_RED) {
-        className.replace(/st-border-select-black/gi, "");
-        className = className + " st-border-select-red";
-      } else if (content.borderOnSelect === ST_BLACK) {
-        className.replace(/st-border-select-red/gi, "");
-        className = className + " st-border-select-black";
-      } else {
-        className = selectedText.getAttribute(CLASS) + SELECTED_RESPONSE_CLASS;
-      }
-
+      let selectedText = document.getElementById(id);
+      const responses = showCorrectResponses.responses;
       if (
-        content.maxResponseSelection === "" ||
-        responses.length < content.maxResponseSelection
+        selectedText !== null &&
+        selectedText.getAttribute(CLASS) !== null &&
+        selectedText.getAttribute(CLASS) !== "" &&
+        responses.includes(id)
       ) {
+        let className = selectedText
+          .getAttribute(CLASS)
+          .replace(/st-border-select-black/gi, "")
+          .replace(/st-border-select-red/gi, "")
+          .replace(/st-selected-response/gi, "");
+
         selectedText.setAttribute(CLASS, className);
-        responses.push(id);
+        if (responses.includes(id)) {
+          const optIndex = responses.findIndex((element) => element === id);
+          responses.splice(optIndex, 1);
+        }
+      } else {
+        let className =
+          selectedText.getAttribute(CLASS) + SELECTED_RESPONSE_CLASS;
+
+        if (content.borderOnSelect === ST_RED) {
+          className.replace(/st-border-select-black/gi, "");
+          className = className + " st-border-select-red";
+        } else if (content.borderOnSelect === ST_BLACK) {
+          className.replace(/st-border-select-red/gi, "");
+          className = className + " st-border-select-black";
+        } else {
+          className = selectedText.getAttribute(CLASS) + SELECTED_RESPONSE_CLASS;
+        }
+
+        if (
+          content.maxResponseSelection === "" ||
+          responses.length < content.maxResponseSelection
+        ) {
+          selectedText.setAttribute(CLASS, className);
+          responses.push(id);
+        }
       }
+      onUpdate({ ...content });
     }
-    onUpdate({ ...content });
-  }
   };
 
   //This method is to set the content in the correct response section based on type selection
@@ -223,24 +202,24 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
           passageContent = passageContent.replace(/&nbsp;/gi, " ");
           passageContent = passageContent.replace(/\?/gi, "QEST_MARK");
           foilText = foilText.replace(/\?/gi, "QEST_MARK");
-    
+
           // eslint-disable-next-line
           let format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
           if (
             foilText.slice(-1).match(format) === null &&
             foilText.slice(-1).match(/[a-z0-9]/i) === null
           ) {
-            regex = new RegExp("(<=\\s|\\b)" + foilText );
-          } else if (foilText.slice(-1).match(format) !== null  && foilText.slice(0, 1).match(/[a-z0-9]/i)!== null) {
+            regex = new RegExp("(<=\\s|\\b)" + foilText);
+          } else if (foilText.slice(-1).match(format) !== null && foilText.slice(0, 1).match(/[a-z0-9]/i) !== null) {
             regex = new RegExp("\\b" + foilText, "");
-          }else if ((foilText.slice(-1).match(format) !== null || foilText.endsWith("QEST_MARK", foilText.length)) && foilText.slice(0, 1).match(/[a-z0-9]/i)=== null) {
+          } else if ((foilText.slice(-1).match(format) !== null || foilText.endsWith("QEST_MARK", foilText.length)) && foilText.slice(0, 1).match(/[a-z0-9]/i) === null) {
             //RegX below is used if the starting letter is any special character.
-            regex = new RegExp( "(?=[]\\b|\\W)" +foilText+ "(?=[]\\b|\\s|$)" );
-          }  
+            regex = new RegExp("(?=[]\\b|\\W)" + foilText + "(?=[]\\b|\\s|$)");
+          }
           else {
             regex = new RegExp("\\b" + foilText + "\\b", "");
           }
-         
+
           passageContent = passageContent.replace(
             regex,
             buildDataForHighlight(content.foils[i].foilId, foilText)
@@ -262,21 +241,21 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
           if (
             foilText.slice(-1) !== "." &&
             foilText.slice(-1).match(/[a-z]/i) === null &&
-            foilText.slice((foilText.length-1), 1).match(/[a-z0-9]/i)!==null &&
-            foilText.slice(0, 1).match(/[a-z0-9]/i)!==null
+            foilText.slice((foilText.length - 1), 1).match(/[a-z0-9]/i) !== null &&
+            foilText.slice(0, 1).match(/[a-z0-9]/i) !== null
           ) {
             regex = new RegExp("(<=\\s|\\b)" + foilText + "(?=[]\\b|\\s|$)");
 
-          } else if(foilText.slice(-1) !== "." &&
-          foilText.slice(-1).match(/[a-z]/i) === null &&
-          foilText.slice((foilText.length-1), 1).match(/[a-z0-9]/i)===null &&
-          foilText.slice(0, 1).match(/[a-z0-9]/i)!==null){
+          } else if (foilText.slice(-1) !== "." &&
+            foilText.slice(-1).match(/[a-z]/i) === null &&
+            foilText.slice((foilText.length - 1), 1).match(/[a-z0-9]/i) === null &&
+            foilText.slice(0, 1).match(/[a-z0-9]/i) !== null) {
 
             regex = new RegExp("(<=\\s|\\b)" + foilText);
-            
-          }else if(foilText.slice(0, 1).match(/[a-z0-9]/i)===null){
-            regex = new RegExp( "(?=[]\\b|\\W)" +foilText+ "(?=[]\\b|\\s|$)" );
-          }else if (foilText.slice(-1) === ".") {
+
+          } else if (foilText.slice(0, 1).match(/[a-z0-9]/i) === null) {
+            regex = new RegExp("(?=[]\\b|\\W)" + foilText + "(?=[]\\b|\\s|$)");
+          } else if (foilText.slice(-1) === ".") {
             regex = new RegExp("\\b" + foilText, "");
           } else {
             regex = new RegExp("\\b" + foilText + "\\b", "");
@@ -291,7 +270,7 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
 
           let pNodelist = doc.querySelectorAll("p");
           let fullFoilText = "";
-          let pArray =[];
+          let pArray = [];
           for (let i = 0; i < pNodelist.length; i++) {
             if (fullFoilText.length < 1) {
               fullFoilText = pNodelist[i].innerHTML;
@@ -308,38 +287,38 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
           let currentIndexText = newFoilText[i];
           // eslint-disable-next-line
           let format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.\/?~]/;
-          let symbol ="";
+          let symbol = "";
           //Below logic is used to neglect if the last character is punctuation for Word splitting.
-          if (currentIndexText!==undefined && currentIndexText.slice(-1).match(format) !== null){
-            symbol = " ##"+currentIndexText.slice(-1).match(format);
-            passageContent = passageContent.replace(currentIndexText, (currentIndexText.slice(0,currentIndexText.length-1)+symbol));
-            currentIndexText = currentIndexText.slice(0,currentIndexText.length-1);         
-          }if (currentIndexText!==undefined && currentIndexText.endsWith("@QEST_MARK", currentIndexText.length)){
+          if (currentIndexText !== undefined && currentIndexText.slice(-1).match(format) !== null) {
+            symbol = " ##" + currentIndexText.slice(-1).match(format);
+            passageContent = passageContent.replace(currentIndexText, (currentIndexText.slice(0, currentIndexText.length - 1) + symbol));
+            currentIndexText = currentIndexText.slice(0, currentIndexText.length - 1);
+          } if (currentIndexText !== undefined && currentIndexText.endsWith("@QEST_MARK", currentIndexText.length)) {
             symbol = " @QEST_MARK";
-            passageContent = passageContent.replace(currentIndexText, (currentIndexText.slice(0,currentIndexText.length-10)+symbol));
-            currentIndexText = currentIndexText.slice(0,currentIndexText.length-10);
+            passageContent = passageContent.replace(currentIndexText, (currentIndexText.slice(0, currentIndexText.length - 10) + symbol));
+            currentIndexText = currentIndexText.slice(0, currentIndexText.length - 10);
           }
-          
+
           //Logic below is used to created the regx if the starting letter is any special character
-            if (currentIndexText!==undefined && foilText !== escapeRegExp(currentIndexText) &&
-            currentIndexText.slice(0, 1).match(/[a-z0-9]/i)!==null ) {
-              regex = new RegExp("(<=\\s|\\b)" + currentIndexText );
-              foilText = currentIndexText;
-            }else if(currentIndexText!==undefined && currentIndexText.slice(0, 1).match(/[a-z0-9]/i)===null){
-              regex = new RegExp("(?=[]\\b|\\W)" + currentIndexText + "(?=[]\\b|\\s|$)");
-              foilText = currentIndexText;
-            }
-          
+          if (currentIndexText !== undefined && foilText !== escapeRegExp(currentIndexText) &&
+            currentIndexText.slice(0, 1).match(/[a-z0-9]/i) !== null) {
+            regex = new RegExp("(<=\\s|\\b)" + currentIndexText);
+            foilText = currentIndexText;
+          } else if (currentIndexText !== undefined && currentIndexText.slice(0, 1).match(/[a-z0-9]/i) === null) {
+            regex = new RegExp("(?=[]\\b|\\W)" + currentIndexText + "(?=[]\\b|\\s|$)");
+            foilText = currentIndexText;
+          }
+
 
           passageContent = passageContent.replace(
             regex,
             buildDataForHighlight(content.foils[i].foilId, foilText)
           );
-         
-          if(symbol!==""){
-            if(symbol===" @QEST_MARK"){
+
+          if (symbol !== "") {
+            if (symbol === " @QEST_MARK") {
               passageContent = passageContent.replace(" @QEST_MARK", "@QEST_MARK");
-            }else{
+            } else {
               passageContent = passageContent.replace(symbol, symbol.slice(-1));
             }
           }
@@ -384,9 +363,9 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
     correctResponseHighlight(updatedPassageContent);
   };
   function escapeRegExp(str) {
-   
-    if(str!==undefined && str!==""){
-       // eslint-disable-next-line
+
+    if (str !== undefined && str !== "") {
+      // eslint-disable-next-line
       return str.replace(/[\-\[\]\/\{\}\(\)\*\+\\\^\$\|]/g, "\\$&");
 
     }
@@ -423,7 +402,7 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
           document
             .getElementById(CORRECT_RESPONSE_AREA)
             .getElementsByTagName(SELECT_TEXT_TAG)
-            [i].setAttribute(CLASS, classNames);
+          [i].setAttribute(CLASS, classNames);
         }
       }
     }
@@ -503,13 +482,12 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
 
   return (
     <>
-      <h4>"st_correct_response"</h4>
       <div
         id="correctResponseArea"
         className="st-correct-response"
         data-testid="correct-response-panel"
       />
-   </>
+    </>
   );
 };
 
