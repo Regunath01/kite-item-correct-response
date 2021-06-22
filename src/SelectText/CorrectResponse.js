@@ -502,14 +502,14 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
   }
 
   return (
-    <React.Fragment>
+    <>
       <h4>"st_correct_response"</h4>
       <div
         id="correctResponseArea"
         className="st-correct-response"
         data-testid="correct-response-panel"
       />
-   </React.Fragment>
+   </>
   );
 };
 

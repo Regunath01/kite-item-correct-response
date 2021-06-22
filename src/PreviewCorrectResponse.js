@@ -55,7 +55,7 @@ const PreviewCorrecrResponse = ({ content, onUpdate,module, showCorrectResponseO
         //   });
 
   return (
-    <React.Fragment>
+    <>
     {/* {itemCode === "ST" && (
             <CorrectResponse content={content} onUpdate={onUpdate} />
     )}
@@ -64,7 +64,7 @@ const PreviewCorrecrResponse = ({ content, onUpdate,module, showCorrectResponseO
     )} */}
      <itemResponse.CorrectResponse content={content} onUpdate={onUpdate} module={module} showCorrectResponse={setCorrectReponseOnly()}/>
    
-     </React.Fragment>
+     </>
   );
 };
 

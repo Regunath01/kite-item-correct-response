@@ -102,7 +102,7 @@ const CorrectResponse = ({ content, onUpdate }) => {
             {content.leftoptions.map(({ index, id, textHtml }) => (
               <tr id={"cr-" + id}>
                 {index === 0 && (
-                 <React.Fragment>
+                 <>
                     <th style={{ width: columnWidth }}>
                       <div id={id}>{parse(textHtml)}</div>
                     </th>
@@ -111,10 +111,10 @@ const CorrectResponse = ({ content, onUpdate }) => {
                         <div id={id}>{parse(textHtml)}</div>
                       </th>
                     ))}
-                  </React.Fragment>
+                  </>
                 )}
                 {index > 0 && (
-                  <React.Fragment>
+                  <>
                     <td>
                       <div id={id}>{parse(textHtml)}</div>
                     </td>
@@ -146,7 +146,7 @@ const CorrectResponse = ({ content, onUpdate }) => {
                         </div>
                       </td>
                     ))}
-                  </React.Fragment>
+                  </>
                 )}
               </tr>
             ))}

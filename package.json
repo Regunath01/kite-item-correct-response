@@ -1,65 +1,61 @@
 {
-    "name": "kite-item-correct-response",
-    "version": "1.0.0",
-    "description": "React Boilerplate Component for npm",
-    "main": "./src/PreviewCorrectResponse.js",
-    "license": "MIT",
-    "scripts": {
-        "build": "webpack"
-    },
-    "peerDependencies": {
-        "prop-types": "^15.6.0",
-        "react": "^16.12.0",
-        "react-dom": "^16.12.0"
-    },
-    "devDependencies": {
-        "babel-core": "^6.21.0",
-        "babel-loader": "^7.1.4",
-        "babel-preset-env": "^1.6.1",
-        "babel-preset-react": "^6.16.0",
-        "babel-preset-stage-0": "^6.24.1",
-        "path": "^0.12.7",
-        "prop-types": "^15.6.0",
-        "react": "^16.12.0",
-        "react-dom": "^16.12.0",
-        "webpack": "^4.5.0",
-        "webpack-cli": "^3.2.1"
-    },
-    "dependencies": {
-        "@babel/plugin-transform-react-jsx": "^7.14.5",
-        "@progress/kendo-data-query": "^1.5.4",
-        "@progress/kendo-drawing": "^1.9.2",
-        "@progress/kendo-react-animation": "^4.0.0",
-        "@progress/kendo-react-buttons": "^3.18.0",
-        "@progress/kendo-react-common": "^3.18.0",
-        "@progress/kendo-react-data-tools": "^3.18.0",
-        "@progress/kendo-react-dateinputs": "^3.18.0",
-        "@progress/kendo-react-dialogs": "^3.18.0",
-        "@progress/kendo-react-dropdowns": "^3.18.0",
-        "@progress/kendo-react-excel-export": "^4.4.0",
-        "@progress/kendo-react-grid": "^3.18.0",
-        "@progress/kendo-react-inputs": "^3.18.0",
-        "@progress/kendo-react-intl": "^3.18.0",
-        "@progress/kendo-react-layout": "^3.18.0",
-        "@progress/kendo-react-popup": "^4.4.0",
-        "@progress/kendo-react-progressbars": "^3.18.0",
-        "@progress/kendo-react-treelist": "^3.18.0",
-        "@progress/kendo-react-treeview": "^4.3.0",
-        "@progress/kendo-react-upload": "^3.18.0",
-        "@progress/kendo-scheduler-react-wrapper": "^2019.4.1014",
-        "@progress/kendo-theme-default": "^4.23.0",
-        "css-loader": "^5.2.6",
-        "html-react-parser": "^1.2.7",
-        "style-loader": "^2.0.0"
-    },
-    "plugins": [
-        [
-            "@babel/plugin-transform-react-jsx",
-            {
-                "throwIfNamespace": false,
-                "runtime": "automatic",
-                "importSource": "custom-jsx-library"
-            }
-        ]
-    ]
+  "name": "kite-item-correct-response",
+  "version": "1.0.1",
+  "description": "",
+  "main": "dist/PreviewCorrectResponse.js",
+  "scripts": {
+    "start": "webpack --watch",
+    "build": "webpack",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/psharneja/react-publishable-component"
+  },
+  "author": "Prabhsimran Singh <psharneja@gmail.com> (http://psharneja.github.io/)",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.13.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "style-loader": "^1.1.2",
+    "url-loader": "^3.0.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2",
+    "@progress/kendo-data-query": "^1.5.4",
+    "@progress/kendo-drawing": "^1.9.2",
+    "@progress/kendo-react-animation": "^4.0.0",
+    "@progress/kendo-react-buttons": "^3.18.0",
+    "@progress/kendo-react-common": "^3.18.0",
+    "@progress/kendo-react-data-tools": "^3.18.0",
+    "@progress/kendo-react-dateinputs": "^3.18.0",
+    "@progress/kendo-react-dialogs": "^3.18.0",
+    "@progress/kendo-react-dropdowns": "^3.18.0",
+    "@progress/kendo-react-excel-export": "^4.4.0",
+    "@progress/kendo-react-grid": "^3.18.0",
+    "@progress/kendo-react-inputs": "^3.18.0",
+    "@progress/kendo-react-intl": "^3.18.0",
+    "@progress/kendo-react-layout": "^3.18.0",
+    "@progress/kendo-react-popup": "^4.4.0",
+    "@progress/kendo-react-progressbars": "^3.18.0",
+    "@progress/kendo-react-treelist": "^3.18.0",
+    "@progress/kendo-react-treeview": "^4.3.0",
+    "@progress/kendo-react-upload": "^3.18.0",
+    "@progress/kendo-scheduler-react-wrapper": "^2019.4.1014",
+    "@progress/kendo-theme-default": "^4.23.0",
+    "html-react-parser": "^1.2.7"
+  },
+  "peerDependencies": {
+    "react": "^16.12.0"
+  }
 }
