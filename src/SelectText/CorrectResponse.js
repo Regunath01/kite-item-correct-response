@@ -18,7 +18,7 @@ import {
   WHOLE_SENTENCES,
 } from "./constants";
 
-const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => {
+const CorrectResponse = ({ content, onUpdate, module, existingResponseObject, showCorrectResponse }) => {
 
   const setClassNames = () => {
     let newClass = {
@@ -61,8 +61,9 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
 
   const [classNameForCR, setClassNameForCR] = useState(setClassNames());
 
-  const showCorrectResponses = setResponseObject();//Setting response object where user action has to be saved
-
+  const showCorrectResponses = existingResponseObject;//Setting response object where user action has to be saved
+  
+  
   useEffect(() => {
     if (content.borderAtStart === ST_RED) {
       classNameForCR.borderOnStart = " st-border-start-red";
@@ -100,27 +101,6 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
   }, [content]);
 
 
-  //This Handler is used to set the response object based on the module
-  function setResponseObject() {
-    if (module === "PREVIEW" && !showCorrectResponse) {
-      /* If the request is from preview then we will be saving user action 
-      in the new attribute(content.previewResponseAction) in content object */
-      if (!content.previewResponseAction) {
-        content.previewResponseAction = { responses: [] };
-      }
-
-      return content.previewResponseAction;
-    } else if (module === "PREVIEW" && showCorrectResponse) {
-      /* If the request is from preview to correct response only 
-      then we will be showing the correct responses where the user cannot perform any actions*/      
-      return content.correctResponse;
-    } else {
-      return content.correctResponse;
-    }
-
-  }
-
-
   //This Handler is used to build the correct response based on user selection
   const buildCorrectResponse = (e) => {
     e.preventDefault();
@@ -149,9 +129,9 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
           responses.splice(optIndex, 1);
         }
       } else {
+       
         let className =
-          selectedText.getAttribute(CLASS) + SELECTED_RESPONSE_CLASS;
-
+          selectedText.getAttribute(CLASS) ;
         if (content.borderOnSelect === ST_RED) {
           className.replace(/st-border-select-black/gi, "");
           className = className + " st-border-select-red";
@@ -159,7 +139,13 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
           className.replace(/st-border-select-red/gi, "");
           className = className + " st-border-select-black";
         } else {
-          className = selectedText.getAttribute(CLASS) + SELECTED_RESPONSE_CLASS;
+          className = selectedText.getAttribute(CLASS) ;
+        }
+
+        if (content.highlightOnSelect === ST_YELLOW) {
+          className = className +" " +SELECTED_RESPONSE_CLASS;
+        } else {
+          className = className + " st-selected-response-none";
         }
 
         if (
@@ -170,7 +156,7 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
           responses.push(id);
         }
       }
-      onUpdate({ ...content });
+      onUpdate({ ...showCorrectResponses });
     }
   };
 
@@ -456,7 +442,6 @@ const CorrectResponse = ({ content, onUpdate, module, showCorrectResponse }) => 
 
   function getOnSelectClassNames() {
     let classNameForCR = "";
-
     if (content.highlightOnSelect === ST_YELLOW) {
       classNameForCR = SELECTED_RESPONSE_CLASS;
     } else {
