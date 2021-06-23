@@ -15,7 +15,7 @@ const PreviewCorrecrResponse = ({ content, onUpdate, module, showCorrectResponse
   { code: "ST", repository: SelectText },];
   console.log("itemTypeCode", content.itemTypeCode)
 
-  const itemType = setRepo();
+  const itemType = setItemRepository();
 
  //This methos is used to set Item repositoy based on the itemTypeCode
   function setItemRepository() {
