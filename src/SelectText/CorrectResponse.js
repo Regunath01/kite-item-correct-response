@@ -18,7 +18,7 @@ import {
   WHOLE_SENTENCES,
 } from "./constants";
 
-const CorrectResponse = ({ content, onUpdate, module, existingResponseObject, showCorrectResponse }) => {
+const CorrectResponse = ({ content, onUpdate, existingResponseObject, showCorrectResponse }) => {
 
   const setClassNames = () => {
     let newClass = {
